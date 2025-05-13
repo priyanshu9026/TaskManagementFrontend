@@ -20,14 +20,11 @@ const LoginForm = ({ redirectUrl }) => {
   const { loading, isLoggedIn } = authState;
   const dispatch = useDispatch();
 
-
   useEffect(() => {
     if (isLoggedIn) {
       navigate(redirectUrl || "/");
     }
   }, [authState, redirectUrl, isLoggedIn, navigate]);
-
-
 
   const handleChange = e => {
     setFormData({
@@ -46,8 +43,6 @@ const LoginForm = ({ redirectUrl }) => {
     dispatch(postLoginData(formData.email, formData.password));
   }
 
-
-
   const fieldError = (field) => (
     <p className={`mt-1 text-pink-600 text-sm ${formErrors[field] ? "block" : "hidden"}`}>
       <i className='mr-2 fa-solid fa-circle-exclamation'></i>
@@ -57,28 +52,29 @@ const LoginForm = ({ redirectUrl }) => {
 
   return (
     <>
-      <form className='m-auto my-16 max-w-[500px] bg-white p-8 border-2 shadow-md rounded-md'>
+      <form className='m-auto my-16 max-w-[500px] bg-gradient-to-r from-blue-50 to-blue-100 p-8 border-2 shadow-lg rounded-lg'>
         {loading ? (
           <Loader />
         ) : (
           <>
-            <h2 className='text-center mb-4'>Welcome user, please login here</h2>
-            <div className="mb-4">
-              <label htmlFor="email" className="after:content-['*'] after:ml-0.5 after:text-red-500">Email</label>
-              <Input type="text" name="email" id="email" value={formData.email} placeholder="youremail@domain.com" onChange={handleChange} />
+            <h2 className='text-center mb-6 text-2xl font-bold text-gray-700'>Welcome Back!</h2>
+            <p className='text-center mb-6 text-gray-500'>Please login to continue</p>
+            <div className="mb-6">
+              <label htmlFor="email" className="block text-gray-700 font-medium mb-2 after:content-['*'] after:ml-0.5 after:text-red-500">Email</label>
+              <Input type="text" name="email" id="email" value={formData.email} placeholder="youremail@domain.com" onChange={handleChange} className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" />
               {fieldError("email")}
             </div>
 
-            <div className="mb-4">
-              <label htmlFor="password" className="after:content-['*'] after:ml-0.5 after:text-red-500">Password</label>
-              <Input type="password" name="password" id="password" value={formData.password} placeholder="Your password.." onChange={handleChange} />
+            <div className="mb-6">
+              <label htmlFor="password" className="block text-gray-700 font-medium mb-2 after:content-['*'] after:ml-0.5 after:text-red-500">Password</label>
+              <Input type="password" name="password" id="password" value={formData.password} placeholder="Your password.." onChange={handleChange} className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" />
               {fieldError("password")}
             </div>
 
-            <button className='bg-primary text-white px-4 py-2 font-medium hover:bg-primary-dark' onClick={handleSubmit}>Submit</button>
+            <button className='w-full bg-blue-500 text-white px-4 py-2 font-medium rounded-md hover:bg-blue-600 transition duration-300' onClick={handleSubmit}>Login</button>
 
-            <div className='pt-4'>
-              <Link to="/signup" className='text-blue-400'>Don't have an account? Signup here</Link>
+            <div className='pt-6 text-center'>
+              <Link to="/signup" className='text-blue-500 hover:underline'>Don't have an account? Signup here</Link>
             </div>
           </>
         )}
